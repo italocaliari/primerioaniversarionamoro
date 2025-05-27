@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Site com Música Contínua</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden; /* Evita scroll desnecessário na página principal */
+            display: flex;
+            flex-direction: column;
+        }
+        #contentFrame {
+            flex-grow: 1; /* Faz o iframe ocupar o espaço restante */
+            width: 100%;
+            border: none; /* Remove a borda do iframe */
+        }
+        /* Estilos para os controles de áudio na página principal (wrapper) */
+        #music-player-controls {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: white;
+            font-size: 0.9rem;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #music-player-controls button {
+            background: none;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        #music-player-controls button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        #music-player-controls input[type="range"] {
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+
+    <iframe id="contentFrame" src="index.html"></iframe>
+
+    <div id="music-player-controls">
+        <button id="toggleMainMusic">Tocar Música</button>
+        <input type="range" id="mainVolumeControl" min="0" max="1" step="0.01" value="0.5">
+        <label for="mainVolumeControl">Volume</label>
+    </div>
+
+    <script>
+        const mainAudio = new Audio();
+        // Link da música para o player principal
+        mainAudio.src = 'JorgeMateus-Seu-Astral.mp3';
+        mainAudio.loop = true;
+        mainAudio.volume = 0.5; // Volume inicial
+
+        const toggleMainMusicButton = document.getElementById('toggleMainMusic');
+        const mainVolumeControl = document.getElementById('mainVolumeControl');
+        const contentFrame = document.getElementById('contentFrame');
+
+        let isMainMusicPlaying = false;
+
+        // Botão Tocar/Pausar Música Principal
+        toggleMainMusicButton.addEventListener('click', () => {
+            if (isMainMusicPlaying) {
+                mainAudio.pause();
+                toggleMainMusicButton.textContent = 'Tocar Música';
+                isMainMusicPlaying = false;
+            } else {
+                mainAudio.play()
+                    .then(() => {
+                        toggleMainMusicButton.textContent = 'Pausar Música';
+                        isMainMusicPlaying = true;
+                    })
+                    .catch(error => {
+                        console.error("Erro ao tentar tocar a música na página principal:", error);
+                        alert("O navegador bloqueou a reprodução automática. Por favor, clique no botão 'Tocar Música' novamente.");
+                    });
+            }
+        });
+
+        // Controle de Volume da Música Principal
+        mainVolumeControl.addEventListener('input', (event) => {
+            mainAudio.volume = event.target.value;
+        });
+
+        // Tenta iniciar a música principal ao carregar a página (será bloqueado sem interação)
+        window.addEventListener('load', () => {
+            mainAudio.play()
+                .then(() => {
+                    toggleMainMusicButton.textContent = 'Pausar Música';
+                    isMainMusicPlaying = true;
+                })
+                .catch(error => {
+                    console.warn("Reprodução automática bloqueada na página principal.");
+                    toggleMainMusicButton.textContent = 'Tocar Música';
+                });
+        });
+
+        // Ouve mensagens do iframe para mudar a URL interna
+        window.addEventListener('message', (event) => {
+            // Em um ambiente de produção, é altamente recomendável verificar event.origin para segurança.
+            // Ex: if (event.origin !== window.location.origin) return; 
+            
+            if (event.data && event.data.type === 'navigate' && event.data.url) {
+                contentFrame.src = event.data.url; // Altera o src do iframe
+            }
+        });
+    </script>
+</body>
+</html>

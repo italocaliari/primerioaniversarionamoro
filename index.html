@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teste de Paciência</title>
+<link href="css/styles.css" rel="stylesheet">
+
+</head>
+<body>
+
+  <div class="letter-text" tabindex="0" aria-live="polite" style="font-size: 1.6rem; line-height: 2.4rem; text-align: justify;">
+  <p>
+    Era uma vez, ahhh assim não é muito clichê e não é filme. Bom, tudo começou em <span class="highlight">2023</span>, aquele ano era o meu ano até que em março apareceu uma pessoa nova, uma menina que tem cabelo loiro escuro e liso, pele clara, e um jeito de "não me toque" — isso na minha visão.
+  </p>
+  <p>
+    Olhava pra ela e sentia uma coisa estranha, tipo, não sei explicar se era bom ou ruim, mas era estranho. Passou um tempo e tudo mais. Daí, estava com os meus amigos numa sexta-feira indo almoçar, e falei com os moleques de mandar mensagem pra zoar e ver no que dava. Que fique entre nós, mas na real mesmo, eu queria ela, só que faltava coragem.
+  </p>
+  <p>
+    Aí mandei mensagem e ela me respondeu. Passou um tempo e as coisas foram rolando. Chegando próximo das férias eu percebi que estava com sentimento por ela. Então sim, o estranho que eu sentia quando vi ela pela primeira vez era isso. Sabia que ela era a mulher certa, mas não sabia quando e como ia acontecer — mas sabia que ia.
+  </p>
+  <p>
+    Inventei um papo furado falando isso e aquilo só pra deixar de ver ela, pra tentar parar o sentimento que eu tinha. Isso deu um pouco certo... até que voltaram as aulas. Aí foi ladeira abaixo. Último semestre, eu não queria nada com nada, apenas curtir, mas ainda tinha uma pulga atrás da orelha.
+  </p>
+  <p>
+    Dias, semanas e meses passaram. Chegando no finalzinho do ano, o grande dia chegou: fui pra casa dela, ela disse que estava tudo ok... até que do nada aparece o vô dela. Fiquei um pouco nervoso, não era raiva ou frio na barriga, mas achei que ia dar merda. De repente tudo começou — minha cabeça foi um turbilhão de coisas, sentimentos e tudo mais.
+  </p>
+  <p>
+    Mas ali achei que seria o último dia que veria ela durante bons anos. Até que chegou o dia: <span class="highlight">formatura</span>. Não lembro nada daquele dia, a não ser que fiquei com meus amigos conversando e dando variás risadas. Fora isso, não lembro de mais nada. E ali foi a última vez que vi ela naquele ano.
+  </p>
+  <p>
+    <span class="highlight">2024</span>, ano novo, vida nova. Comecei o ano ansioso pelo que viria pela frente. Ainda nas férias do começo do ano, bebia todos os dias e sempre acabava lembrando daquela mesma pessoa que eu tinha um pouco de sentimento. Não sei o que ela fez, mas ela deu uma mexida na minha cabeça.
+  </p>
+  <p>
+    Chegando o carnaval, até tentei ver ela novamente, mas não consegui. Após isso, falei com um amigo meu que era próximo dela e consegui finalmente ver ela. Depois disso, foram várias tentativas de ficar com ela, ver ela, chamar ela em casa.
+  </p>
+  <p>
+    Enfim, teve dias que fiquei um pouco frustrado, mas mesmo assim ainda queria algo com ela. Até que chegou o dia <span class="highlight">28/06</span> — o meu primeiro pedido de namoro. Foi um pouco aleatório, não sabia como fazer e o que fazer, mas ela me deu a melhor resposta da vida: <span class="highlight">SIM!</span>
+  </p>
+  <p>
+    Ali tudo começou. Antes contava dias após dias, depois mês após mês, e agora ano após ano. Bom, fiz esse texto pra você saber um pouco de como foi o período do primeiro dia que te vi até o do SIM! Após o sim... você já sabe de tudo.
+  </p>
+</div>
+
+
+  <h1>Teste de Paciência Clique Até Abrir</h1>
+
+  <button id="heart-btn" aria-label="Coração quebrado">💔</button>
+  <p id="phrase" style="text-align:center; font-size:1.4rem; margin-top:1rem;"></p>
+
+  
+
+<script>
+  const heartBtn = document.getElementById('heart-btn');
+  const phraseEl = document.getElementById('phrase');
+  const toggleMusicButton = document.getElementById('toggleMusic');
+  const volumeControl = document.getElementById('volumeControl');
+
+  const phrases = [
+    "Você é amorosa",
+    "Você é inteligente",
+    "Você é bonita",
+    "Você é linda",
+    "Você é incrível",
+    "Você é tudo",
+    "Você é meu amor"
+  ];
+
+  let clicks = 0;
+
+ 
+  heartBtn.addEventListener('click', () => {
+    if (clicks < phrases.length) {
+      phraseEl.textContent = phrases[clicks];
+      clicks++;
+      const hearts = ["💔", "❤️‍🔥", "💓", "❤️", "💝"];
+      const index = Math.floor((clicks / phrases.length) * (hearts.length - 1));
+      heartBtn.textContent = hearts[index];
+      if (clicks === phrases.length) {
+        setTimeout(() => {
+          // *** NAVEGAÇÃO DIRETA para o arquivo local ***
+          window.location.href = 'carrossel.html';
+        }, 1200);
+      }
+    }
+  });
+</script>
+</body>
+</html>
